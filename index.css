@@ -1,0 +1,158 @@
+:root {
+  --background-color: #FAF3E0; /* 和紙のようなクリーム色 */
+  --primary-color: #2E4057;    /* 藍色 */
+  --text-color: #FFFFFF;
+  --dice-color: #FFFFFF;
+  --pip-color: #333333;
+  --pip-color-one: #BC4749;    /* 朱色 */
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  padding: 2rem;
+}
+
+.dice-wrapper {
+  perspective: 1000px;
+}
+
+.dice {
+  width: 100px;
+  height: 100px;
+  background-color: var(--dice-color);
+  border-radius: 12px;
+  box-shadow: 0 5px 15px var(--shadow-color), inset 0 -2px 5px var(--shadow-color);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 5px;
+  transition: transform 1s;
+}
+
+.pip {
+  width: 20px;
+  height: 20px;
+  background-color: var(--pip-color);
+  border-radius: 50%;
+  align-self: center;
+  justify-self: center;
+  visibility: hidden; /* デフォルトですべての点を非表示 */
+}
+
+/* --- サイコロの目のスタイル --- */
+
+/* 1の目 */
+.face-1 .pip:nth-child(5) {
+  visibility: visible;
+  background-color: var(--pip-color-one);
+}
+
+/* 2の目 */
+.face-2 .pip:nth-child(1),
+.face-2 .pip:nth-child(9) {
+  visibility: visible;
+}
+
+/* 3の目 */
+.face-3 .pip:nth-child(1),
+.face-3 .pip:nth-child(5),
+.face-3 .pip:nth-child(9) {
+  visibility: visible;
+}
+
+/* 4の目 */
+.face-4 .pip:nth-child(1),
+.face-4 .pip:nth-child(3),
+.face-4 .pip:nth-child(7),
+.face-4 .pip:nth-child(9) {
+  visibility: visible;
+}
+
+/* 5の目 */
+.face-5 .pip:nth-child(1),
+.face-5 .pip:nth-child(3),
+.face-5 .pip:nth-child(5),
+.face-5 .pip:nth-child(7),
+.face-5 .pip:nth-child(9) {
+  visibility: visible;
+}
+
+/* 6の目 */
+.face-6 .pip:nth-child(1),
+.face-6 .pip:nth-child(3),
+.face-6 .pip:nth-child(4),
+.face-6 .pip:nth-child(6),
+.face-6 .pip:nth-child(7),
+.face-6 .pip:nth-child(9) {
+  visibility: visible;
+}
+
+
+.roll-button {
+  padding: 0.8rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: inherit;
+  color: var(--text-color);
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px var(--shadow-color);
+  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  user-select: none;
+}
+
+.roll-button:hover {
+  background-color: #3f5874; /* 少し明るい藍色 */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.roll-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.roll-button:disabled {
+  background-color: #9eadbe;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+/* --- アニメーション --- */
+.rolling {
+  animation: roll 1s ease-out;
+}
+
+@keyframes roll {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(720deg) rotateY(720deg) rotateZ(720deg);
+  }
+}
